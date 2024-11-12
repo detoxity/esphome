@@ -7,7 +7,7 @@ namespace bl0940 {
 
 static const char *const TAG = "bl0940";
 
-static const uint8_t BL0940_READ_COMMAND = 0x50;  // 0x58 according to documentation
+static const uint8_t BL0940_READ_COMMAND = 0x58;  // 0x58 according to documentation
 static const uint8_t BL0940_FULL_PACKET = 0xAA;
 static const uint8_t BL0940_PACKET_HEADER = 0x55;  // 0x58 according to documentation
 
