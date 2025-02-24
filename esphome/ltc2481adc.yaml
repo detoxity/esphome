@@ -1,0 +1,40 @@
+esphome:
+  name: ltc2481
+  platform: ESP32
+  board: esp32dev
+
+external_components:
+  - source:
+      type: local
+      path: components
+    components: [ltc2481]  # Explicitly specify the custom component
+
+
+# Enable Logging
+logger:
+
+# Enable API
+api:
+
+# Enable OTA Updates
+ota:
+
+# WiFi Configuration
+wifi:
+  ssid: "Your_WiFi_SSID"
+  password: "Your_WiFi_Password"
+
+# I2C Setup
+i2c:
+  sda: GPIO21
+  scl: GPIO22
+  scan: true
+
+# LTC2481 Custom Sensor
+sensor:
+  - platform: ltc2481
+    address: 0x24  # Corrected to hexadecimal
+    name: "LTC2481 ADC Voltage"
+    unit_of_measurement: "V"
+    accuracy_decimals: 4
+    update_interval: 1s
