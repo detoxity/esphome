@@ -36,6 +36,10 @@ float LTC2481Sensor::read_voltage() {
   uint8_t ret;
   ret = this->read(data.LT_BYTE, 3);
   ESP_LOGI("LTC2483", "i2c read res: %d", ret);
+  if(ret){
+    ESP_LOGI("LTC2483", "ERROR read from i2c");
+    return NAN;
+  } 
 
 
   data.LT_BYTE[3] = data.LT_BYTE[0]; // Shift bytes up by one. We read out 24 bits,
