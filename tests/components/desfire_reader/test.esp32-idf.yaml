@@ -1,0 +1,44 @@
+i2c:
+  - id: i2c_desfire
+    scl: 16
+    sda: 17
+
+text_sensor:
+  - platform: template
+    id: desfire_target_id
+    lambda: |-
+      return {"1234567890"};
+
+desfire_reader:
+  id: desfire
+  i2c_id: i2c_desfire
+  address: 0x24
+  update_interval: 500ms
+  master_key: "000102030405060708090A0B0C0D0E0F"
+  app_id: A1B2C3
+  key_number: 1
+  file_id: 1
+  file_size: 16
+  target_id: desfire_target_id
+  mode_timeout: 30s
+  harden_picc_master_key: true
+  on_tag:
+    - logger.log:
+        format: "DESFire tag: %s"
+        args: ["x.c_str()"]
+  on_status:
+    - logger.log:
+        format: "DESFire status: %s"
+        args: ["x.c_str()"]
+
+button:
+  - platform: template
+    name: DESFire add card
+    on_press:
+      - lambda: |-
+          id(desfire).start_add_mode();
+  - platform: template
+    name: DESFire factory reset
+    on_press:
+      - lambda: |-
+          id(desfire).start_format_mode();
